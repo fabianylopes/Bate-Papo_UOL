@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./assets/favicon.png" type="image/x-icon"/>
+    <title>Bate-Papo UOL</title>
+</head>
+<body>
+    <header>
+        <img src="./assets/icone.png">
+        <ion-icon class="people" name="people"></ion-icon>
+    </header>
+
+    <main>
+        <div class="messages">
+            <ul class="messages-list"></ul>
+        </div>
+    </main>
+
+    <footer>
+        <input class="write-here" placeholder="Escreva aqui..."/>
+        <button data-identifier="send-message" onclick="sendMessages()">
+            <ion-icon type="submit" id="submit" class="paper-plane" name="paper-plane-outline"></ion-icon>
+        </button>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+</html>
