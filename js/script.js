@@ -1,11 +1,6 @@
-
 let nickName;
 
-let info;
-
-login();
-
-function login(){
+function enterChat(){
     nickName = prompt('Qual o seu lindo nome? ');
 
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', {name:nickName});
@@ -15,39 +10,45 @@ function login(){
 
 function handleFailure(){
     alert('Nome já cadastrado!\nTente novamente.');
-    login();
+    enterChat();
 }
 
+function keepConnection(){
+    axios.post('https://mock-api.driven.com.br/api/v4/uol/status', {name:nickName});
+}
+
+setInterval(keepConnection, 5000);
 
 function getMessages(){
-
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
     promise.then(loadMessages);
-    promise.catch(fail);
-
 }
 
-//setInterval(loadMessages, 3000);
+setInterval(getMessages, 3000);
 
 function loadMessages(response){
-    
-    info = response.data;
-
     const chatMessages = document.querySelector('.messages-list');
     chatMessages.innerHTML = '';
-
+    
+    let info = response.data;
+    
     for(let i = 0; i < info.length; i++){
+        
+        let time = info[i].time;
+        let from = info[i].from;
+        let to = info[i].to;
+        let text = info[i].text;
 
-        if(info[i].type = 'status'){
+        if(info[i].type === 'status'){
             chatMessages.innerHTML += `
             <li class="message">
                 <p class="status" data-identifier="message">
-                    <span class="time">(${info[i].time})</span>
-                    <span class="fromTo">${info[i].from}</span>${info[i].text}
+                    <span class="time">(${time})</span>
+                    <span class="fromTo">${from}</span>${text}
                 </p>
             </li>
             `
-        }else if(info[i] === 'message'){
+        }else if(info[i].type === 'message'){
             chatMessages.innerHTML += `
             <li class="message">
                 <p class="normal" data-identifier="message">
@@ -69,15 +70,10 @@ function loadMessages(response){
             `
         }
     }
+
+    const lastMessage = document.querySelector('ul li:last-child');
+    lastMessage.scrollIntoView();
 }
-
-function fail(error){
-    console.log(error);
-}
-
-//setInterval(keepConnection, 5000);
-
-
 
 function sendMessage(){
     const inputMessage = document.querySelector('input');
@@ -95,7 +91,6 @@ function sendMessage(){
 
     promise.then(getMessages);
     promise.catch(reloadPage);
-
 }
 
 function reloadPage(){
@@ -104,7 +99,9 @@ function reloadPage(){
 
 document.addEventListener("keypress", function(e){
 	if(e.key === 'Enter'){
-		const button = document.querySelector("#submit");
+		const button = document.querySelector('#submit');
 		button.click();
 	}
 });
+
+enterChat();
