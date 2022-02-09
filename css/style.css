@@ -118,6 +118,23 @@ button {
     font-size: 26px;
 }
 
-/* .modal {
+section {
+    width: 100vw;
     height: 100vh;
-} */
+    background: rgba(0, 0, 0, 0.6);
+
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.sidebar {
+    width: 70%;
+    height: 100vh;
+    background-color: #fff;
+}
+
+.hide {
+    display: none;
+}

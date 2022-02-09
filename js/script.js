@@ -1,30 +1,10 @@
 let nickName;
 
-function enterChat(){
-    nickName = prompt('Qual o seu lindo nome? ');
-
-    const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', {name:nickName});
-    promise.then(getMessages);
-    promise.catch(handleFailure);
-}
-
-function handleFailure(){
-    alert('Nome já cadastrado!\nTente novamente.');
-    enterChat();
-}
-
-function keepConnection(){
-    axios.post('https://mock-api.driven.com.br/api/v4/uol/status', {name:nickName});
-}
-
-setInterval(keepConnection, 5000);
-
 function getMessages(){
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
+
     promise.then(loadMessages);
 }
-
-setInterval(getMessages, 3000);
 
 function loadMessages(response){
     const chatMessages = document.querySelector('.messages-list');
@@ -64,15 +44,41 @@ function loadMessages(response){
                 <p class="private" data-identifier="message">
                     <span class="time">(${time})</span>
                     <span class="fromTo">${from}</span>reservadamente para
-                    <span class="fromTo">${to}:</span>: ${text}
+                    <span class="fromTo">${to}:</span>:${text}
                 </p>
             </li>
             `
         }
     }
 
+    scrollToLastMessage();
+}
+
+function scrollToLastMessage(){
     const lastMessage = document.querySelector('ul li:last-child');
     lastMessage.scrollIntoView();
+}
+
+function askName(){
+    nickName = prompt('Qual o seu lindo nome? ');
+    
+    const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', {name:nickName});
+    
+    promise.then(enterChat);
+    promise.catch(handleName);
+}
+
+function enterChat(){
+    setInterval(keepConnection, 5000);
+}
+
+function handleName(){
+    alert('Nome já cadastrado!\nTente novamente.');
+    askName();
+}
+
+function keepConnection(){
+    axios.post('https://mock-api.driven.com.br/api/v4/uol/status', {name:nickName});
 }
 
 function sendMessage(){
@@ -86,7 +92,7 @@ function sendMessage(){
         type: "message" 
     }
     );
-    
+
     inputMessage.value = '';
 
     promise.then(getMessages);
@@ -94,7 +100,7 @@ function sendMessage(){
 }
 
 function reloadPage(){
-    window.location.reload(); 
+    window.location.reload();
 }
 
 document.addEventListener("keypress", function(e){
@@ -104,4 +110,11 @@ document.addEventListener("keypress", function(e){
 	}
 });
 
-enterChat();
+function startChat(){
+    getMessages();
+    setInterval(getMessages, 3000);
+
+    askName();
+}
+
+startChat();
