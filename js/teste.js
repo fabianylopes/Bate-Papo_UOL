@@ -1,53 +1,61 @@
-
 let nickName;
 
-let info;
+let data;
 
 login();
 
 function login(){
     nickName = prompt('Qual o seu lindo nome? ');
 
-    const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', {name:nickName});
-    promise.then(getMessages);
+    const promise = axios.post('http://mock-api.driven.com.br/api/v4/uol/participants', {name:nickName});
+    promise.then(handleSuccess);
     promise.catch(handleFailure);
+}
+
+function handleSuccess(){
+    getMessages();
 }
 
 function handleFailure(){
     alert('Nome já cadastrado!\nTente novamente.');
-    login();
+    login()
 }
-
 
 function getMessages(){
-
+    
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
     promise.then(loadMessages);
-    promise.catch(fail);
-
+    promise.catch(handleFailure);
 }
 
-//setInterval(loadMessages, 3000);
+function handleFailure(){
+    alert('coisou');
+}
 
 function loadMessages(response){
-    
-    info = response.data;
-
     const chatMessages = document.querySelector('.messages-list');
     chatMessages.innerHTML = '';
 
-    for(let i = 0; i < info.length; i++){
+    data = response.data;
 
-        if(info[i].type = 'status'){
+    
+    for(let i = 0; i < data.length; i++){
+        
+        let from = resposta.data[i].from;
+        let to = resposta.data[i].to;
+        let text = resposta.data[i].text;
+        let time = resposta.data[i].time;
+
+        if(data[i] === 'status'){
             chatMessages.innerHTML += `
             <li class="message">
                 <p class="status" data-identifier="message">
-                    <span class="time">(${info[i].time})</span>
-                    <span class="fromTo">${info[i].from}</span>${info[i].text}
+                    <span class="time">(${time})</span>
+                    <span class="fromTo">${from}</span>${text}
                 </p>
             </li>
             `
-        }else if(info[i] === 'message'){
+        }else if(data[i] === 'message'){
             chatMessages.innerHTML += `
             <li class="message">
                 <p class="normal" data-identifier="message">
@@ -57,7 +65,7 @@ function loadMessages(response){
                 </p>
             </li>
             `
-        }else if(info[i].type === "private_message" && info[i].to === nickName){
+        }else if(data[i].type === "private_message" && data[i].to === nickName){
             chatMessages.innerHTML += `
             <li class="message">
                 <p class="private" data-identifier="message">
@@ -69,38 +77,36 @@ function loadMessages(response){
             `
         }
     }
+
 }
-
-function fail(error){
-    console.log(error);
-}
-
-//setInterval(keepConnection, 5000);
-
-
 
 function sendMessage(){
     const inputMessage = document.querySelector('input');
 
-    const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages', 
-    {
-        from: nickName,
-        to: "Todos",
-        text: inputMessage.value,
-        type: "message" 
-    }
-    );
-    
+    const promise = axios.post('http://mock-api.driven.com.br/api/v4/uol/messages',
+        {
+            from: `${nickName}`,
+            to: "Todos",
+            text: inputMessage.value,
+            type: "message"
+          }
+    )
+
     inputMessage.value = '';
 
-    promise.then(getMessages);
+    promise.then(loadMessages);
     promise.catch(reloadPage);
-
 }
 
 function reloadPage(){
     window.location.reload(); 
 }
+
+function scrollToTheEnd(){
+    const lastMessage = document.querySelector('');
+    lastMessage.scrollIntoView();
+}
+
 
 document.addEventListener("keypress", function(e){
 	if(e.key === 'Enter'){
@@ -108,3 +114,4 @@ document.addEventListener("keypress", function(e){
 		button.click();
 	}
 });
+
