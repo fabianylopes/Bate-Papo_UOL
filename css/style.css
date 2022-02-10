@@ -2,6 +2,48 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+.homePage {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homePage img {
+    width: 130px;
+}
+
+.enter-chat {
+    width: 260px;
+    height: 54px;
+    margin-top: 94px;
+    margin-bottom: 15px;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    text-align: center;
+    outline: 0;
+}
+
+.enter-chat::placeholder {
+    color: #AEAEAE;
+}
+
+.enter-button {
+    width: 110px;
+    height: 45px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #696969;
+    background-color: #E7E7E7;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+}
+
 header {
     width: 100vw;
     height: 80px;
@@ -20,7 +62,7 @@ header {
     left: 0;
 }
 
-img {
+header img {
     width: 75px;
 }
 
@@ -75,8 +117,6 @@ p {
     font-weight: 700;
 }
 
-
-
 footer {
     width: 100vw;
     height: 80px;
@@ -95,7 +135,7 @@ footer {
     left: 0;
 }
 
-input {
+.write-here {
     width: 100vw;
     height: 40px;
     font-weight: 400;
@@ -108,7 +148,7 @@ input {
     outline: 0;
 }
 
-button {
+.message-button{
     background-color: #fff;
     border: none;
     cursor: pointer;

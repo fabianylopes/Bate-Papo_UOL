@@ -2,7 +2,6 @@ let nickName;
 
 function getMessages(){
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
-
     promise.then(loadMessages);
 }
 
@@ -59,8 +58,10 @@ function scrollToLastMessage(){
     lastMessage.scrollIntoView();
 }
 
-function askName(){
-    nickName = prompt('Qual o seu lindo nome? ');
+const enterInput = document.querySelector('.enter-chat');
+
+function login(){
+    nickName = enterInput.value;
     
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', {name:nickName});
     
@@ -69,12 +70,20 @@ function askName(){
 }
 
 function enterChat(){
+    const home = document.querySelector('.homePage');
+    home.classList.add('hide');
+
+    const page = document.querySelector('.container');
+    page.classList.remove('hide');
+    
+    getMessages();
+    setInterval(getMessages, 3000);
     setInterval(keepConnection, 5000);
 }
 
 function handleName(){
     alert('Nome já cadastrado!\nTente novamente.');
-    askName();
+    enterInput.value = '';
 }
 
 function keepConnection(){
@@ -82,7 +91,7 @@ function keepConnection(){
 }
 
 function sendMessage(){
-    const inputMessage = document.querySelector('input');
+    const inputMessage = document.querySelector('.write-here');
 
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages', 
     {
@@ -105,16 +114,7 @@ function reloadPage(){
 
 document.addEventListener("keypress", function(e){
 	if(e.key === 'Enter'){
-		const button = document.querySelector('#submit');
+		const button = document.querySelector('.message-button');
 		button.click();
 	}
 });
-
-function startChat(){
-    getMessages();
-    setInterval(getMessages, 3000);
-
-    askName();
-}
-
-startChat();

@@ -13,29 +13,37 @@
     <title>Bate-Papo UOL</title>
 </head>
 <body>
-    <header>
+    <div class="homePage">
         <img src="./assets/icone.png">
-        <ion-icon class="people" name="people"></ion-icon>
-    </header>
+        <input class="enter-chat" type="text" placeholder="Digite seu nome"/>
+        <button class="enter-button" id="submit" onclick="login()">Entrar</button>
+    </div>
 
     <section class="hide">
         <div class="sidebar">
 
         </div>
     </section>
+    
+    <div class="container hide">
+        <header>
+            <img src="./assets/icone.png">
+            <ion-icon class="people" name="people"></ion-icon>
+        </header>
 
-    <main>
-        <div class="messages">
-            <ul class="messages-list"></ul>
-        </div>
-    </main>
+        <main>
+            <div class="messages">
+                <ul class="messages-list"></ul>
+            </div>
+        </main>
 
-    <footer>
-        <input class="write-here" type="text" placeholder="Escreva aqui..."/>
-        <button id="submit" data-identifier="send-message" onclick="sendMessage()">
-            <ion-icon class="paper-plane" name="paper-plane-outline"></ion-icon>
-        </button>
-    </footer>
+        <footer>
+            <input class="write-here" type="text" placeholder="Escreva aqui..."/>
+            <button class="message-button" id="submit" data-identifier="send-message" onclick="sendMessage()">
+                <ion-icon class="paper-plane" name="paper-plane-outline"></ion-icon>
+            </button>
+        </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
