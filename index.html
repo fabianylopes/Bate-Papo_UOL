@@ -19,16 +19,37 @@
         <button class="enter-button" id="submit" onclick="login()">Entrar</button>
     </div>
 
-    <section class="hide">
+    <section class="hide" onclick="closeSidebar()">
         <div class="sidebar">
-
+            <div class="text-sidebar">
+                <h1>Escolha um contato</h1>
+                <h1>para enviar mensagem:</h1>
+            </div>
+            <div class="options-sidebar">
+                <ion-icon name="person-circle"></ion-icon>
+                <h2>Todos</h2>
+                <ion-icon class="check" name="checkmark-outline"></ion-icon>
+            </div>
+            <div class="text-sidebar">
+                <h1>Escolha a visibilidade:</h1>
+            </div>
+            <div class="options-sidebar">
+                <ion-icon name="lock-open"></ion-icon>
+                <h2>Público</h2>
+                <ion-icon class="check" name="checkmark-outline"></ion-icon>
+            </div>
+            <div class="options-sidebar">
+                <ion-icon name="lock-closed"></ion-icon>
+                <h2>Reservadamente</h2>
+                <ion-icon class="check" name="checkmark-outline"></ion-icon>
+            </div>
         </div>
     </section>
     
     <div class="container hide">
         <header>
             <img src="./assets/icone.png">
-            <ion-icon class="people" name="people"></ion-icon>
+            <ion-icon class="people" name="people" onclick="openSidebar()"></ion-icon>
         </header>
 
         <main>

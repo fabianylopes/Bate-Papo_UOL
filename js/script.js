@@ -108,6 +108,21 @@ function sendMessage(){
     promise.catch(reloadPage);
 }
 
+function openSidebar(){
+    const bar = document.querySelector('section');
+    bar.classList.remove('hide');
+}
+
+function closeSidebar(){
+    const bar = document.querySelector('section');
+    bar.classList.add('hide');
+}
+
+function searchUsers(){
+    const promise = axios.get('https://mock-api.driven.com.br/api/v4/uol/participants');
+
+}
+
 function reloadPage(){
     window.location.reload();
 }
