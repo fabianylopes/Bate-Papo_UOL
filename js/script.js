@@ -22,8 +22,8 @@ function loadMessages(response){
             chatMessages.innerHTML += `
             <li class="message">
                 <p class="status" data-identifier="message">
-                    <span class="time">(${time})</span>
-                    <span class="fromTo">${from}</span>${text}
+                    <span style="color: #aaa;">(${time})</span>
+                    <span style="font-weight: 700;">${from}</span>${text}
                 </p>
             </li>
             `
@@ -31,9 +31,9 @@ function loadMessages(response){
             chatMessages.innerHTML += `
             <li class="message">
                 <p class="normal" data-identifier="message">
-                    <span class="time">(${time})</span>
-                    <span class="fromTo">${from}</span>para 
-                    <span class="fromTo">${to}:</span>${text}
+                    <span style="color: #aaa;">(${time})</span>
+                    <span style="font-weight: 700;">${from}</span>para
+                    <span style="font-weight: 700;">${to}:</span>${text}
                 </p>
             </li>
             `
@@ -41,9 +41,8 @@ function loadMessages(response){
             chatMessages.innerHTML += `
             <li class="message">
                 <p class="private" data-identifier="message">
-                    <span class="time">(${time})</span>
-                    <span class="fromTo">${from}</span>reservadamente para
-                    <span class="fromTo">${to}:</span>:${text}
+                    <span style="color: #aaa;">(${time})</span><span style="font-weight: 700;">${from}</span>reservadamente para
+                    <span style="font-weight: 700;">${to}:</span>${text}
                 </p>
             </li>
             `
@@ -106,21 +105,6 @@ function sendMessage(){
 
     promise.then(getMessages);
     promise.catch(reloadPage);
-}
-
-function openSidebar(){
-    const bar = document.querySelector('section');
-    bar.classList.remove('hide');
-}
-
-function closeSidebar(){
-    const bar = document.querySelector('section');
-    bar.classList.add('hide');
-}
-
-function searchUsers(){
-    const promise = axios.get('https://mock-api.driven.com.br/api/v4/uol/participants');
-
 }
 
 function reloadPage(){
