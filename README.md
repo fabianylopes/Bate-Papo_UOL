@@ -1,3 +1,3 @@
 # Bate-Papo UOL
 
-Acesso: https://fabianylopes.github.io/projeto5-batepapo-uol/
+Acesso: https://fabianylopes.github.io/Bate-Papo_UOL/
